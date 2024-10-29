@@ -5,11 +5,6 @@ using Login_Selenium_v2.PageObject.Login;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Login_Selenium_v2.Test
 {
@@ -69,7 +64,7 @@ namespace Login_Selenium_v2.Test
         [OneTimeTearDown]
         public void cerrarReporte()
         {
-            extent.Flush();
+            extent?.Flush();
         }
 
         [TearDown]
