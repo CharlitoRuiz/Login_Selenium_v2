@@ -10,10 +10,10 @@ namespace Login_Selenium_v2.Genericos
 {
     public class LeerJson
     {
-        public POCO.LoginData login_data()
+        public List<POCO.LoginData> login_data()
         {
-            var Json = JsonConvert.DeserializeObject<POCO.LoginData>(File.ReadAllText(@"..\..\..\Data\login.json"));
-            return Json;
+            var Json = JsonConvert.DeserializeObject<Dictionary<String, List<POCO.LoginData>>>(File.ReadAllText(@"..\..\..\Data\login.json"));
+            return Json["credenciales"]; 
 
             //try
             //{
