@@ -5,16 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Login_Selenium_v2.PageObject
+namespace Login_Selenium_v2.PageObject.Login
 {
-    public class LoginPage
+    public class LoginPage : BasePage
     {
-        public IWebDriver _driver;
-
-        // Constructor
-        public LoginPage(IWebDriver driver) {
-            this._driver = driver;
-        }
+        public LoginPage(IWebDriver driver) : base(driver) { }
 
         // Elements locators
         private readonly By _txtUsername = By.Id("username");
@@ -27,7 +22,8 @@ namespace Login_Selenium_v2.PageObject
         public IWebElement LoginButtom => _driver.FindElement(_btnLogin);
 
         // Method
-        public void IngresarCredenciales(string user, string password) {
+        public void IngresarCredenciales(string user, string password)
+        {
             UsernameField.SendKeys(user);
             PasswordField.SendKeys(password);
             LoginButtom.Click();
