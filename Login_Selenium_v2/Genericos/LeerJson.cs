@@ -4,12 +4,12 @@ namespace Login_Selenium_v2.Genericos
 {
     public class LeerJson
     {
-        public List<POCO.LoginData> login_data()
+        public List<POCO.LoginData> login_data(string nombrejson, string key)
         {
             try
             {
-                var Json = JsonConvert.DeserializeObject<Dictionary<String, List<POCO.LoginData>>>(File.ReadAllText(@"..\..\..\Data\login.json"));
-                return Json["credenciales"] ?? throw new InvalidOperationException("El archivo JSON está vacío o mal formateado."); 
+                var Json = JsonConvert.DeserializeObject<Dictionary<String, List<POCO.LoginData>>>(File.ReadAllText(@$"..\..\..\Data\{nombrejson}.json"));
+                return Json[$"{key}"] ?? throw new InvalidOperationException("El archivo JSON está vacío o mal formateado."); 
             }
             catch (FileNotFoundException)
             {
@@ -19,7 +19,6 @@ namespace Login_Selenium_v2.Genericos
             {
                 throw new JsonException("El archivo JSON tiene un formato incorrecto.");
             }
-
         }
     }
 }

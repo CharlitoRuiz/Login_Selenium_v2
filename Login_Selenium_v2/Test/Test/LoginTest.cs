@@ -14,7 +14,7 @@ namespace Login_Selenium_v2.Test.Test
             get
             {
                 var json = new LeerJson();
-                return json.login_data().Select(data => new TestCaseData(data.username, data.password));
+                return json.login_data("login", "credenciales").Select(data => new TestCaseData(data.username, data.password));
             }
         }
 
@@ -37,7 +37,6 @@ namespace Login_Selenium_v2.Test.Test
             }
             catch (NoSuchElementException ex)
             {
-
                 Console.WriteLine($"No se encontró el elemento: {ex.Message}");
                 Assert.Fail($"Prueba fallida: { ex.Message}");
             }
