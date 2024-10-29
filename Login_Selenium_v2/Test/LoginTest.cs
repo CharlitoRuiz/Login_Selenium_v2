@@ -24,6 +24,8 @@ namespace Login_Selenium_v2.Test
         {
 
             login.IngresarCredenciales(user, password);
+            Assert.That(login.ValidarIngresoCorrecto());
+            Assert.That(login.LogoutButtom.Displayed);
         }
     }
 }
