@@ -1,24 +1,15 @@
+using Login_Selenium_v2.Genericos;
 using Login_Selenium_v2.PageObject;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
 namespace Login_Selenium_v2.Test
 {
-    [TestFixture("tomsmith", "SuperSecretPassword!")]
-    [TestFixture("tomsmith1", "SuperSecretPassword!")]
     public class Tests
     {
         public IWebDriver driver;
         public LoginPage login;
-        public string user;
-        public string password;
-
-        // Constructor que recibe los parámetros de [TestFixture]
-        public Tests(string user, string password)
-        {
-            this.user = user;
-            this.password = password;
-        }
+        public LeerJson json;
 
         [SetUp]
         public void IniciarNavegador() { 
@@ -26,6 +17,7 @@ namespace Login_Selenium_v2.Test
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl("https://the-internet.herokuapp.com/login");
             login = new LoginPage(driver);
+            json = new LeerJson();
         }
 
         [TearDown]
@@ -35,16 +27,19 @@ namespace Login_Selenium_v2.Test
         }
 
         [Test]
-        [TestCase("tomsmith", "SuperSecretPassword!")]
-        public void IngresoCorrecto(string user, string password)
+        public void IngresoCorrecto()
         {
+            String user = json.login_data().username;
+            String password = json.login_data().password;
+
             login.IngresarCredenciales(user, password);
         }
 
         [Test]
         public void ingresoIncorrecto()
         {
-            login.IngresarCredenciales(user, password);
+
+            login.IngresarCredenciales("tomsmith1", "password");
         }
     }
 }
