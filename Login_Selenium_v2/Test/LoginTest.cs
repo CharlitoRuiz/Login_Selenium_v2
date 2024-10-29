@@ -2,6 +2,7 @@ using Login_Selenium_v2.Genericos;
 using Login_Selenium_v2.PageObject;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System.Collections;
 
 namespace Login_Selenium_v2.Test
 {
@@ -26,20 +27,21 @@ namespace Login_Selenium_v2.Test
             driver.Quit();
         }
 
-        [Test]
-        public void IngresoCorrecto()
+        public static IEnumerable TestData
         {
-            String user = json.login_data().username;
-            String password = json.login_data().password;
-
-            login.IngresarCredenciales(user, password);
+            get
+            {
+                var json = new LeerJson();
+                return json.login_data().Select(data => new TestCaseData(data.username, data.password));
+            }
         }
 
         [Test]
-        public void ingresoIncorrecto()
+        [TestCaseSource(nameof(TestData))]
+        public void IngresoPagina(String user, String password)
         {
 
-            login.IngresarCredenciales("tomsmith1", "password");
+            login.IngresarCredenciales(user, password);
         }
     }
 }
