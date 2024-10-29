@@ -27,9 +27,9 @@ namespace Login_Selenium_v2.PageObject
         public IWebElement LoginButtom => _driver.FindElement(_btnLogin);
 
         // Method
-        public void IngresarCredenciales() {
-            UsernameField.SendKeys("tomsmith");
-            PasswordField.SendKeys("SuperSecretPassword!");
+        public void IngresarCredenciales(string user, string password) {
+            UsernameField.SendKeys(user);
+            PasswordField.SendKeys(password);
             LoginButtom.Click();
 
         }
