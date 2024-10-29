@@ -1,7 +1,8 @@
+using Login_Selenium_v2.PageObject;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace Login_Selenium_v2
+namespace Login_Selenium_v2.Test
 {
     public class Tests
     {
@@ -12,10 +13,9 @@ namespace Login_Selenium_v2
             IWebDriver driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl("https://the-internet.herokuapp.com/login");
+            LoginPage login = new LoginPage(driver);
 
-            driver.FindElement(By.Id("username")).SendKeys("tomsmith");
-            driver.FindElement(By.Id("password")).SendKeys("SuperSecretPassword!");
-            driver.FindElement(By.CssSelector("#login button")).Click();
+            login.IngresarCredenciales();
 
             driver.Close();
             driver.Quit();
