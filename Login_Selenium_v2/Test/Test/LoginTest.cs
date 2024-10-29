@@ -13,7 +13,7 @@ namespace Login_Selenium_v2.Test.Test
             get
             {
                 var json = new LeerJson();
-                return json.login_data().Select(data => new TestCaseData(data.username, data.password));
+                return json.login_data("login", "credenciales").Select(data => new TestCaseData(data.username, data.password));
             }
         }
 
@@ -21,7 +21,7 @@ namespace Login_Selenium_v2.Test.Test
         [TestCaseSource(nameof(TestData))]
         public void IngresoPagina(string user, string password)
         {
-            test = extent.CreateTest("Ingresar a la página");
+            test = extent.CreateTest("Ingresar a la pÃ¡gina");
 
 
             try
@@ -31,31 +31,31 @@ namespace Login_Selenium_v2.Test.Test
                 wait.Until(driver => login.LoginButtom.Enabled && login.LoginButtom.Displayed);
                 wait.Until(driver => !login.UsernameField.Equals(null)); // wait.Until(driver => login.UsernameField != null); 
                 login.ClickBotonLogin();
-                test.Log(Status.Pass, "Click en el botón Login");
+                test.Log(Status.Pass, "Click en el botÃ³n Login");
                 Assert.That(driver.Url.Equals("https://the-internet.herokuapp.com/secure"), "La URL no corresponde a la pagina de inicio esperada");
                 wait.Until(driver => login.PageMessage.Displayed);
-                Assert.That(login.ValidarIngresoCorrecto(), "La validación de ingreso correcto falló.");
-                Assert.That(login.LogoutButtom.Displayed, "El botón de logout no se mostró correctamente.");
+                Assert.That(login.ValidarIngresoCorrecto(), "La validaciÃ³n de ingreso correcto fallÃ³.");
+                Assert.That(login.LogoutButtom.Displayed, "El botÃ³n de logout no se mostrÃ³ correctamente.");
                 wait.Until(driver => login.LogoutButtom.Enabled);
                 login.ClickBotonLogout();
-                test.Log(Status.Pass, "Se dio click en el botón Logout");
+                test.Log(Status.Pass, "Se dio click en el botÃ³n Logout");
             }
             catch (NoSuchElementException ex)
             {
                 test.AddScreenCaptureFromBase64String(captura.CapturarPantalla(driver));
-                Assert.Fail($"No se encontró el elemento: {ex.Message}");
+                Assert.Fail($"No se encontrÃ³ el elemento: {ex.Message}");
             }
             catch (AssertionException ex)
             {
-                test.Log(Status.Fail, $"Fallo de aserción: {ex.Message}");
+                test.Log(Status.Fail, $"Fallo de aserciÃ³n: {ex.Message}");
                 test.AddScreenCaptureFromBase64String(captura.CapturarPantalla(driver));
-                Assert.Fail($"Fallo de aserción: {ex.Message}");
+                Assert.Fail($"Fallo de aserciÃ³n: {ex.Message}");
             }
             catch (Exception ex)
             {
-                test.Log(Status.Fail, $"Error en la ejecución del test: {ex.Message}");
+                test.Log(Status.Fail, $"Error en la ejecuciÃ³n del test: {ex.Message}");
                 test.AddScreenCaptureFromBase64String(captura.CapturarPantalla(driver));
-                Assert.Fail($"Error en la ejecución del test: {ex.Message}");
+                Assert.Fail($"Error en la ejecuciÃ³n del test: {ex.Message}");
                 throw;
             }
         }
