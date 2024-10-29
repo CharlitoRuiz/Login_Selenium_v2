@@ -2,6 +2,7 @@
 using Login_Selenium_v2.PageObject.Login;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Login_Selenium_v2.Test
         public IWebDriver driver;
         public LoginPage login;
         public LeerJson json;
+        public WebDriverWait wait;
 
 
 
@@ -22,10 +24,14 @@ namespace Login_Selenium_v2.Test
         public void IniciarNavegador()
         {
             driver = new ChromeDriver();
+            // Implicit wait
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(5);
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl("https://the-internet.herokuapp.com/login");
             login = new LoginPage(driver);
             json = new LeerJson();
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
         }
 
         [TearDown]

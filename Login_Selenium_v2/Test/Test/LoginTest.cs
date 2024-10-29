@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System.Collections;
 
-namespace Login_Selenium_v2.Test
+namespace Login_Selenium_v2.Test.Test
 {
     public class Tests : BaseTest
     {
@@ -20,12 +20,19 @@ namespace Login_Selenium_v2.Test
 
         [Test]
         [TestCaseSource(nameof(TestData))]
-        public void IngresoPagina(String user, String password)
+        public void IngresoPagina(string user, string password)
         {
 
             login.IngresarCredenciales(user, password);
+            wait.Until(driver => login.LoginButtom.Enabled && login.LoginButtom.Displayed);
+            wait.Until(driver => !login.UsernameField.Equals(null));
+            login.ClickBotonLogin();
+            Assert.That(driver.Url.Equals("https://the-internet.herokuapp.com/secure"));
+            wait.Until(driver => login.PageMessage.Displayed);
             Assert.That(login.ValidarIngresoCorrecto());
             Assert.That(login.LogoutButtom.Displayed);
+            wait.Until(driver => login.LogoutButtom.Enabled);
+            login.CerrarSesion();
         }
     }
 }
