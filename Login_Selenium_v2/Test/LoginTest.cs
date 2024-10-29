@@ -6,34 +6,33 @@ namespace Login_Selenium_v2.Test
 {
     public class Tests
     {
+        public IWebDriver driver;
+        public LoginPage login;
 
-        [Test]
-        public void ingresoCorrecto()
-        {
-            IWebDriver driver = new ChromeDriver();
+        [SetUp]
+        public void IniciarNavegador() { 
+            driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl("https://the-internet.herokuapp.com/login");
-            LoginPage login = new LoginPage(driver);
+            login = new LoginPage(driver);
+        }
 
-            login.IngresarCredenciales();
-
+        [TearDown]
+        public void CerrarNavegador() {
             driver.Close();
             driver.Quit();
         }
 
         [Test]
+        public void ingresoCorrecto()
+        {
+            login.IngresarCredenciales();
+        }
+
+        [Test]
         public void ingresoIncorrecto()
         {
-            IWebDriver driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
-            driver.Navigate().GoToUrl("https://the-internet.herokuapp.com/login");
-
-            driver.FindElement(By.Id("username")).SendKeys("tomsmith1");
-            driver.FindElement(By.Id("password")).SendKeys("SuperSecretPassword!");
-            driver.FindElement(By.CssSelector("#login button")).Click();
-
-            driver.Close();
-            driver.Quit();
+            login.IngresarCredenciales();
         }
     }
 }
