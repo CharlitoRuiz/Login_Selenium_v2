@@ -20,5 +20,20 @@ namespace Login_Selenium_v2
             driver.Close();
             driver.Quit();
         }
+
+        [Test]
+        public void ingresoIncorrecto()
+        {
+            IWebDriver driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
+            driver.Navigate().GoToUrl("https://the-internet.herokuapp.com/login");
+
+            driver.FindElement(By.Id("username")).SendKeys("tomsmith1");
+            driver.FindElement(By.Id("password")).SendKeys("SuperSecretPassword!");
+            driver.FindElement(By.CssSelector("#login button")).Click();
+
+            driver.Close();
+            driver.Quit();
+        }
     }
 }
