@@ -1,9 +1,4 @@
 ﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Login_Selenium_v2.PageObject.Login
 {
@@ -46,7 +41,7 @@ namespace Login_Selenium_v2.PageObject.Login
             return isLogged;
         }
 
-        public void CerrarSesion()
+        public void ClickBotonLogout()
         {
             LogoutButtom.Click();
 
