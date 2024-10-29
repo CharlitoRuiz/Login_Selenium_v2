@@ -22,17 +22,30 @@ namespace Login_Selenium_v2.Test.Test
         [TestCaseSource(nameof(TestData))]
         public void IngresoPagina(string user, string password)
         {
+            try
+            {
+                login.IngresarCredenciales(user, password);
+                wait.Until(driver => login.LoginButtom.Enabled && login.LoginButtom.Displayed);
+                wait.Until(driver => !login.UsernameField.Equals(null));
+                login.ClickBotonLogin();
+                Assert.That(driver.Url.Equals("https://the-internet.herokuapp.com/secure"), "La URL no corresponde a la pagina de inicio esperada");
+                wait.Until(driver => login.PageMessage.Displayed);
+                Assert.That(login.ValidarIngresoCorrecto(), "La validación de ingreso correcto falló.");
+                Assert.That(login.LogoutButtom.Displayed, "El botón de logout no se mostró correctamente.");
+                wait.Until(driver => login.LogoutButtom.Enabled);
+                login.CerrarSesion();
+            }
+            catch (NoSuchElementException ex)
+            {
 
-            login.IngresarCredenciales(user, password);
-            wait.Until(driver => login.LoginButtom.Enabled && login.LoginButtom.Displayed);
-            wait.Until(driver => !login.UsernameField.Equals(null));
-            login.ClickBotonLogin();
-            Assert.That(driver.Url.Equals("https://the-internet.herokuapp.com/secure"));
-            wait.Until(driver => login.PageMessage.Displayed);
-            Assert.That(login.ValidarIngresoCorrecto());
-            Assert.That(login.LogoutButtom.Displayed);
-            wait.Until(driver => login.LogoutButtom.Enabled);
-            login.CerrarSesion();
+                Console.WriteLine($"No se encontró el elemento: {ex.Message}");
+                Assert.Fail($"Prueba fallida: { ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en la ejecución del test: {ex.Message}");
+                throw;
+            }
         }
     }
 }

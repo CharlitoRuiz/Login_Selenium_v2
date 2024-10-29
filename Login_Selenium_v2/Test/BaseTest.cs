@@ -31,7 +31,7 @@ namespace Login_Selenium_v2.Test
             driver.Navigate().GoToUrl("https://the-internet.herokuapp.com/login");
             login = new LoginPage(driver);
             json = new LeerJson();
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
         }
 
         [TearDown]
