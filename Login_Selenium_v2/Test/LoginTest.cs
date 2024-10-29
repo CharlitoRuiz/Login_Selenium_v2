@@ -4,10 +4,21 @@ using OpenQA.Selenium.Chrome;
 
 namespace Login_Selenium_v2.Test
 {
+    [TestFixture("tomsmith", "SuperSecretPassword!")]
+    [TestFixture("tomsmith1", "SuperSecretPassword!")]
     public class Tests
     {
         public IWebDriver driver;
         public LoginPage login;
+        public string user;
+        public string password;
+
+        // Constructor que recibe los parámetros de [TestFixture]
+        public Tests(string user, string password)
+        {
+            this.user = user;
+            this.password = password;
+        }
 
         [SetUp]
         public void IniciarNavegador() { 
@@ -24,15 +35,16 @@ namespace Login_Selenium_v2.Test
         }
 
         [Test]
-        public void ingresoCorrecto()
+        [TestCase("tomsmith", "SuperSecretPassword!")]
+        public void IngresoCorrecto(string user, string password)
         {
-            login.IngresarCredenciales();
+            login.IngresarCredenciales(user, password);
         }
 
         [Test]
         public void ingresoIncorrecto()
         {
-            login.IngresarCredenciales();
+            login.IngresarCredenciales(user, password);
         }
     }
 }
