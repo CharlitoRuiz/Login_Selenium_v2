@@ -35,12 +35,21 @@ namespace Login_Selenium_v2.PageObject.Login
         {
             UsernameField.SendKeys(user);
             PasswordField.SendKeys(password);
-            LoginButtom.Click();
 
+        }
+        public void ClickBotonLogin()
+        {
+            LoginButtom.Click();
         }
         public bool ValidarIngresoCorrecto() {
             bool isLogged = LoginMessage.Text.Contains("You logged into a secure area!") && PageMessage.Text.Equals("Welcome to the Secure Area. When you are done click logout below.");
             return isLogged;
+        }
+
+        public void CerrarSesion()
+        {
+            LogoutButtom.Click();
+
         }
     }
 }
