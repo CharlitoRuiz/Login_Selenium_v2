@@ -46,7 +46,7 @@ namespace Login_Selenium_v2.PageObject.Login
             return isLogged;
         }
 
-        public void CerrarSesion()
+        public void ClickBotonLogout()
         {
             LogoutButtom.Click();
 
